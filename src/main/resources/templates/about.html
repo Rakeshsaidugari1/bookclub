@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookclub | About Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTON3/azprG1Anm3QDgpJLm9Nao@Yz1ztcQTwFspd3yD65VohhpuuCOLASC"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRZLI+pbxtHCWp1t77Bi1L4ZtiqrqDBØKn4Z8NTSRYMA2Fd33n5dQ8WUE00s/"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div th:insert="~{fragments/header :: header}"></div>
+
+<div class="container py-5" style="width: 75%;">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1>About Bookclub</h1>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-12">
+            <p class="lead">
+                Welcome to <strong>Bookclub</strong>, a community-driven platform where book lovers can connect, 
+                share recommendations, and explore new literary adventures together. Our mission is to foster 
+                a welcoming space where readers from all backgrounds can engage in meaningful discussions and 
+                discover new books.
+            </p>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2><i class="fas fa-users text-secondary"></i> Our Community</h2>
+            <p>
+                At Bookclub, we believe in the power of stories to bring people together. Whether you're into fiction, 
+                non-fiction, thrillers, or self-improvement books, you'll find like-minded readers who share your passion.
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            <h2><i class="fas fa-book text-secondary"></i> Our Mission</h2>
+            <p>
+                Our goal is to make reading a social experience by providing a platform where members can create and join book clubs, 
+                participate in discussions, and recommend books to each other.
+            </p>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2><i class="fas fa-handshake text-secondary"></i> What We Offer</h2>
+            <p>
+                - A diverse and inclusive community of readers.<br>
+                - Monthly book recommendations and discussions.<br>
+                - A platform to share reviews and book suggestions.
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            <h2><i class="fas fa-calendar-check text-secondary"></i> Get Involved</h2>
+            <p>
+                Join our book club meetings, participate in themed reading challenges, and contribute to discussions on our forum.
+            </p>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <h3>Join Us Today!</h3>
+            <p>Be a part of our growing community and embark on a literary journey with fellow book enthusiasts.</p>
+            <a href="/register" class="btn btn-primary">Sign Up</a>
+        </div>
+    </div>
+</div>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
+<div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
+
+</body>
+</html>

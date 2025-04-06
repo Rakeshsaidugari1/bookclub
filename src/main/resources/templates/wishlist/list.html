@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>My Wishlist</h2>
+
+        <!-- New Wishlist Item button -->
+        <a class="btn btn-primary my-3" th:href="@{/wishlist/new}">New Wishlist Item</a>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ISBN</th>
+                    <th>Description</th>
+                    <th>Actions</th> <!-- Add Actions column -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${wishlist}">
+                    <td th:text="${item.isbn}">ISBN</td>
+                    <td th:text="${item.description}">Description</td>
+                    <td>
+                        <!-- Link to delete the wishlist item -->
+                        <a th:href="@{/wishlist/delete/{id}(id=${item.id})}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

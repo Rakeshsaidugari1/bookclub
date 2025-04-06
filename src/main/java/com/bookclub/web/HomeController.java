@@ -14,17 +14,11 @@ public class HomeController {
 
     @GetMapping("/")
     public String showHome(Model model) {
-        // Create an instance of MemBookDao
         MemBookDao booksDao = new MemBookDao();
-
-        // Retrieve the list of books
         List<Book> books = booksDao.list();
-
-        // Add books to the model
         model.addAttribute("books", books);
         model.addAttribute("message", "Welcome to the Book Club!");
-
-        return "index";  // Ensure index.html is updated to display books
+        return "index";
     }
 
     @GetMapping("/about")
@@ -39,19 +33,17 @@ public class HomeController {
         return "contact";  
     }
 
-    // New method to retrieve a book by ID
     @GetMapping("/{id}")
     public String getMonthlyBook(@PathVariable("id") String id, Model model) {
-        // Create an instance of MemBookDao
         MemBookDao booksDao = new MemBookDao();
-
-        // Find the book by ID
         Book book = booksDao.find(id);
+        
+        if (book == null) {
+            model.addAttribute("error", "Book not found.");
+            return "error"; // Make sure error.html exists
+        }
 
-        // Add the book to the model
         model.addAttribute("book", book);
-
-        // Return the monthly book view
-        return "monthly-books/view";  // Ensure this matches your template path
+        return "monthly-books/view"; // Ensure this template handles 'book' safely
     }
 }

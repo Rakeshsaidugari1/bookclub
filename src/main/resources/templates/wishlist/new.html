@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Wishlist Item</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Add a New Wishlist Item</h2>
+
+        <!-- Form for adding a new wishlist item -->
+        <form th:action="@{/wishlist/add}" th:object="${wishlistItem}" method="post">
+			<div class="mb-3">
+			                <label for="isbn" class="form-label">ISBN</label>
+			                <input type="text" class="form-control" id="isbn" name="isbn" th:field="*{isbn}" />
+			                <small th:if="${#fields.hasErrors('isbn')}" style="color: red;" th:errors="*{isbn}"></small>
+			            </div>
+			            
+			            <div class="form-group">
+							<label for="Title" class="form-label">Title</label>
+							<input type="text" class="form-control" id="title" name="title" th:field="*{title}" />
+						    <small th:if="${#fields.hasErrors('title')}" style="color: red;" th:errors="*{title}"></small>
+			            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-success">Save Wishlist Item</button>
+        </form>
+
+       
+    </div>
+</body>
+</html>

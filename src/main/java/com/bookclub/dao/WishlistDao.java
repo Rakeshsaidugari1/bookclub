@@ -1,15 +1,15 @@
 package com.bookclub.dao;
 
 import com.bookclub.model.WishlistItem;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.bookclub.service.GenericCrudDao;
+
 import org.springframework.stereotype.Repository;
 
+@Repository("wishlistDao")
+public interface WishlistDao extends GenericCrudDao<WishlistItem, String> {
 
-@Repository
-public interface WishlistDao extends JpaRepository<WishlistItem, Long> {
+	Object findAll();
+    // No need to declare deleteById here unless you want a custom method
 
-
-    // Custom method to delete a WishlistItem by its ID
-    void deleteById(Long id);
-
+	void save(WishlistItem wishlistItem);
 }

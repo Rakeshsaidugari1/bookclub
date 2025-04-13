@@ -1,40 +1,29 @@
 package com.bookclub.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.validation.constraints.NotBlank;
+import org.springframework.data.annotation.Id;
 
-@Entity
 public class WishlistItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @NotBlank(message = "ISBN is required")
     private String isbn;
-
-    @NotBlank(message = "Title is required")
     private String title;
+    private String author;
 
-    // Default constructor required by JPA
+    // Constructors
     public WishlistItem() {}
 
-    // Constructor with parameters
-    public WishlistItem(String isbn, String title) {
+    public WishlistItem(String isbn, String title, String author) {
         this.isbn = isbn;
         this.title = title;
+        this.author = author;
     }
 
-    // Getters and setters
-    public Long getId() {
+    // Getters and Setters
+
+    public String getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getIsbn() {
@@ -53,8 +42,17 @@ public class WishlistItem {
         this.title = title;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    // Updated toString method
     @Override
     public String toString() {
-        return "WishlistItem{id=" + id + ", isbn='" + isbn + "', title='" + title + "'}";
+        return String.format("WishlistItem{id=%s, isbn=%s, title=%s}", id, isbn, title);
     }
 }

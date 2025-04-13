@@ -15,14 +15,14 @@
             <thead>
                 <tr>
                     <th>ISBN</th>
-                    <th>Description</th>
+                    <th>Title</th>
                     <th>Actions</th> <!-- Add Actions column -->
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="item : ${wishlist}">
                     <td th:text="${item.isbn}">ISBN</td>
-                    <td th:text="${item.description}">Description</td>
+                    <td th:text="${item.title}">Title</td>
                     <td>
                         <!-- Link to delete the wishlist item -->
                         <a th:href="@{/wishlist/delete/{id}(id=${item.id})}" class="btn btn-danger">Delete</a>

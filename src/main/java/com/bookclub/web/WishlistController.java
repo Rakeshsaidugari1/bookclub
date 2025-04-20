@@ -23,6 +23,12 @@ public class WishlistController {
         this.wishlistDao = wishlistDao;
     }
 
+    // ✅ Redirect from /wishlist to /wishlist/list
+    @GetMapping
+    public String redirectToWishlistList() {
+        return "redirect:/wishlist/list";
+    }
+
     // ✅ Show wishlist items
     @GetMapping("/list")
     public String showWishlist(Model model) {

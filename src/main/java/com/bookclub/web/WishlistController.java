@@ -29,10 +29,9 @@ public class WishlistController {
         return "redirect:/wishlist/list";
     }
 
-    // ✅ Show wishlist items
+    // ✅ Show wishlist page (simplified without model attribute)
     @GetMapping("/list")
-    public String showWishlist(Model model) {
-        model.addAttribute("wishlist", wishlistDao.list());
+    public String showWishlist() {
         return "wishlist/list";
     }
 

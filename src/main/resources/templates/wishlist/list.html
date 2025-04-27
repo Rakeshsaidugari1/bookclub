@@ -11,25 +11,65 @@
         <!-- New Wishlist Item button -->
         <a class="btn btn-primary my-3" th:href="@{/wishlist/new}">New Wishlist Item</a>
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ISBN</th>
-                    <th>Title</th>
-                    <th>Actions</th> <!-- Add Actions column -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="item : ${wishlist}">
-                    <td th:text="${item.isbn}">ISBN</td>
-                    <td th:text="${item.title}">Title</td>
-                    <td>
-                        <!-- Link to delete the wishlist item -->
-                        <a th:href="@{/wishlist/delete/{id}(id=${item.id})}" class="btn btn-danger">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Replaces Thymeleaf table with a dynamic div -->
+        <div id="wishlist"></div>
     </div>
+
+    <script>
+        class HttpClient {
+            async get(url) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.error("Fetch error: ", error);
+                    return [];
+                }
+            }
+        }
+
+        function buildTable(books) {
+            let tableString = `
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ISBN</th>
+                            <th>Title</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            for (const book of books) {
+                tableString += `
+                    <tr>
+                        <td>${book.isbn || ''}</td>
+                        <td>${book.title || ''}</td>
+                        <td>
+                            <a href="/wishlist/delete/${book.id}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            tableString += `
+                    </tbody>
+                </table>
+            `;
+
+            return tableString;
+        }
+
+        // Load data on page load
+        window.onload = async () => {
+            const client = new HttpClient();
+            const books = await client.get('/api/wishlist');
+            document.getElementById('wishlist').innerHTML = buildTable(books);
+        };
+    </script>
 </body>
 </html>

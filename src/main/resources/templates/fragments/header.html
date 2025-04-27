@@ -36,7 +36,6 @@
                     </li>
                 </ul>
 
-               
                 <div class="d-flex align-items-center">
                     <div sec:authorize="isAuthenticated()">
                         <span class="me-3">Logged in as <strong sec:authentication="name"></strong></span>
@@ -46,6 +45,9 @@
                             <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
                         </form>
                     </div>
+
+                    <!-- Add Swagger UI link here -->
+                    <a href="/swagger-ui/index.html" class="btn btn-outline-info btn-sm ms-2" target="_blank">OpenAPI Specification</a>
                 </div>
             </div>
         </div>

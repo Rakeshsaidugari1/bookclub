@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"> 
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Bookclub | Welcome</title>
@@ -11,43 +11,47 @@
 </head>
 <body>
 
-    <div th:insert="~{fragments/header :: header}"></div>
+<div th:insert="~{fragments/header :: header}"></div>
 
-    <main>
-        <section class="py-5 text-center container">
-            <div class="row py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Book Club</h1>
-                    <p class="lead text-muted">
-                        Welcome to the Book Club app, your "one-stop shop" for all of your book club needs.
-                        Below you will find a list of this month’s top 10 favorite books. Select the book to see its details.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Book List -->
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 mx-auto">
-                    <h2 class="text-center">Top Books This Month</h2>
-                    <ul class="list-group">
-                        <li th:each="book : ${books}" class="list-group-item">
-                            <strong th:text="${book.title}"></strong> by 
-                            <span th:text="${book.authors}"></span> 
-                            <br>
-                            <small>ISBN: <span th:text="${book.isbn}"></span></small>
-                            <br>
-                            <a th:href="@{/{id}(id=${book.isbn})}" class="btn btn-primary btn-sm mt-2">View</a>
-                        </li>
-                    </ul>
-                </div>
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Book Club</h1>
+                <p class="lead text-muted">
+                    Welcome to the Book Club app, your "one-stop shop" for all of your book club needs.
+                    Below you will find a list of this month’s top 10 favorite books. Select the book to see its details.
+                </p>
             </div>
         </div>
-    </main>
+    </section>
 
-    <div th:insert="~{fragments/footer :: footer}"></div>
-    <div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h2 class="text-center mb-4">Top Books This Month</h2>
+                <ul class="list-group">
+                    <li th:each="book : ${books}" class="list-group-item">
+                        <strong th:text="${book.title}">Book Title</strong>
+                        <br>
+                        <small>ISBN: <span th:text="${book.isbn}">ISBN Number</span></small>
+                        <div class="mt-2">
+                            <a th:href="@{/monthly-books/view/{isbn}(isbn=${book.isbn})}" class="btn btn-primary btn-sm me-2">
+                                View
+                            </a>
+                            <a th:href="${book.infoUrl}" class="btn btn-outline-secondary btn-sm" target="_blank">
+                                Web Link
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
+<div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
 
 </body>
 </html>

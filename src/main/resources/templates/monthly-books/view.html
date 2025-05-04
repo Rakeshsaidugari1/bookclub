@@ -18,21 +18,31 @@
             <div class="col-md-8 mx-auto">
                 <h2 class="text-center">Book Details</h2>
 
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-body">
-                        <h4 class="card-title" th:text="${book.title}"></h4>
-                        <h6 class="card-subtitle text-muted">
-                            Authors: <span th:text="${book.authors}"></span>
-                        </h6>
-                        <p class="card-text mt-3"><strong>Description:</strong></p>
-                        <p class="card-text" th:text="${book.description}"></p>
-                        <p><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></p>
-                        <p><strong>Number of Pages:</strong> <span th:text="${book.numOfPages}"></span></p>
+                        <h4 class="card-title" th:text="${book.title}">Book Title</h4>
+
+                        <p class="card-text">
+                            <strong>Number of Pages:</strong>
+                            <span th:text="${book.numOfPages}">0</span>
+                        </p>
+
+                        
+                        <p class="card-text">
+                            <strong>Description:</strong>
+                            <span th:text="${book.description}">No description available</span>
+                        </p>
+
+                        
+                        <a th:href="${book.infoUrl}" target="_blank" class="btn btn-primary mt-3">
+                            Web Link
+                        </a>
+
                     </div>
                 </div>
 
                 <div class="text-center mt-4">
-                    <a href="/" class="btn btn-primary">Back to Home</a>
+                    <a href="/" class="btn btn-secondary">Back to Home</a>
                 </div>
             </div>
         </div>

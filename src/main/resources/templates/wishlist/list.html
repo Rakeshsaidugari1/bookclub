@@ -1,43 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
+    <meta charset="UTF-8">
     <title>Wishlist</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
-    <div class="container mt-5">
-        <h2>My Wishlist</h2>
+<body class="container mt-5">
 
-        <!-- New Wishlist Item button -->
-        <a class="btn btn-primary my-3" th:href="@{/wishlist/new}">New Wishlist Item</a>
+    <h2 class="mb-4">Your Wishlist</h2>
 
-        <!-- Replaces Thymeleaf table with a dynamic div -->
-        <div id="wishlist"></div>
+    <div id="wishlistTable">
+        <!-- Table will be injected here -->
     </div>
 
+    <a href="/wishlist/new" class="btn btn-primary mt-3">Add New Book</a>
+
     <script>
-        class HttpClient {
-            async get(url) {
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return await response.json();
-                } catch (error) {
-                    console.error("Fetch error: ", error);
-                    return [];
-                }
-            }
+        async function fetchWishlist() {
+            const response = await fetch("/api/wishlist");
+            const books = await response.json();
+            document.getElementById("wishlistTable").innerHTML = buildTable(books);
         }
 
         function buildTable(books) {
             let tableString = `
-                <table class="table table-bordered">
-                    <thead>
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
                         <tr>
                             <th>ISBN</th>
                             <th>Title</th>
+                            <th>Author</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -49,8 +41,12 @@
                     <tr>
                         <td>${book.isbn || ''}</td>
                         <td>${book.title || ''}</td>
+                        <td>${book.author || ''}</td>
                         <td>
-                            <a href="/wishlist/delete/${book.id}" class="btn btn-danger">Delete</a>
+                            <a href="/wishlist/${book.id}" class="btn btn-info btn-sm mr-2">View</a>
+                            <form action="/wishlist/remove/${book.id}" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 `;
@@ -64,12 +60,9 @@
             return tableString;
         }
 
-        // Load data on page load
-        window.onload = async () => {
-            const client = new HttpClient();
-            const books = await client.get('/api/wishlist');
-            document.getElementById('wishlist').innerHTML = buildTable(books);
-        };
+        // Load the wishlist when the page loads
+        fetchWishlist();
     </script>
+
 </body>
 </html>

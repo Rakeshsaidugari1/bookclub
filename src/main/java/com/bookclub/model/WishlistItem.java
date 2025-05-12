@@ -11,6 +11,8 @@ public class WishlistItem {
     private String title;
     private String author;
 
+    private String username; // ✅ New field
+
     // Constructors
     public WishlistItem() {}
 
@@ -50,9 +52,19 @@ public class WishlistItem {
         this.author = author;
     }
 
-    // Updated toString method
+    // ✅ New getter and setter for username
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    // ✅ Updated toString method
     @Override
     public String toString() {
-        return String.format("WishlistItem{id=%s, isbn=%s, title=%s}", id, isbn, title);
+        return String.format("WishlistItem{id=%s, isbn=%s, title=%s, author=%s, username=%s}",
+                id, isbn, title, author, username);
     }
 }

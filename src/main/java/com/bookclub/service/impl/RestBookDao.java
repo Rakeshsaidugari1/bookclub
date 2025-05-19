@@ -40,9 +40,15 @@ public class RestBookDao implements BookDao {
     public List<Book> list() {
         String[] isbnKeys = {"ISBN:0451526538", "ISBN:9780140449136", "ISBN:9780141182803"};
         String isbnParam = String.join(",", isbnKeys);
+        return list(isbnParam); // Delegate to overloaded method
+    }
 
+    // ✅ Overloaded method that accepts a custom ISBN string
+    public List<Book> list(String isbnParam) {
         Object jsonResponse = getBooksDoc(isbnParam);
         List<Book> books = new ArrayList<>();
+
+        String[] isbnKeys = isbnParam.split(",");
 
         for (String isbnKey : isbnKeys) {
             try {
@@ -85,8 +91,12 @@ public class RestBookDao implements BookDao {
 
     @Override
     public Book find(String isbn) {
-        String isbnKey = "ISBN:" + isbn;
+        if (isbn == null || isbn.trim().isEmpty() || !isbn.matches("\\d{9}[\\dXx]|\\d{13}")) {
+            System.err.println("Invalid ISBN input: " + isbn);
+            return null;
+        }
 
+        String isbnKey = "ISBN:" + isbn;
         Object jsonResponse = getBooksDoc(isbnKey);
 
         try {

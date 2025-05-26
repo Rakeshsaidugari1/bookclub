@@ -17,6 +17,12 @@ public class WishlistController {
     @Autowired
     private WishlistDao wishlistDao;
 
+    // ✅ Redirect root /wishlist to /wishlist/list
+    @GetMapping
+    public String redirectToList() {
+        return "redirect:/wishlist/list";
+    }
+
     // ✅ List all items for the logged-in user
     @GetMapping("/list")
     public String showWishlist(Authentication authentication, Model model) {
@@ -25,16 +31,20 @@ public class WishlistController {
         return "wishlist/list";
     }
 
-    // ✅ a. Show a specific wishlist item
-    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    // ✅ Show a specific wishlist item (handles null case)
+    @GetMapping("/{id}")
     public String showWishlistItem(@PathVariable String id, Model model) {
         WishlistItem item = wishlistDao.find(id);
+        if (item == null) {
+            model.addAttribute("error", "Wishlist item not found.");
+            return "error"; // Make sure templates/error.html exists
+        }
         model.addAttribute("wishlistItem", item);
         return "wishlist/view";
     }
 
-    // ✅ b. Update a wishlist item
-    @RequestMapping(method = RequestMethod.POST, path = "/update")
+    // ✅ Update a wishlist item
+    @PostMapping("/update")
     public String updateWishlistItem(
             @Validated @ModelAttribute WishlistItem wishlistItem,
             BindingResult bindingResult,
@@ -52,8 +62,8 @@ public class WishlistController {
         return "redirect:/wishlist/list";
     }
 
-    // ✅ c. Remove a wishlist item
-    @RequestMapping(method = RequestMethod.POST, path = "/remove/{id}")
+    // ✅ Remove a wishlist item
+    @PostMapping("/remove/{id}")
     public String removeWishlistItem(@PathVariable String id) {
         wishlistDao.remove(id);
         return "redirect:/wishlist/list";
